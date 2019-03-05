@@ -11,7 +11,8 @@ strand <- sample(c("+","-"),200,repl=TRUE)
 lens <- lapply(1:200, rfrag )
 nlens <- sapply( lens, length )
 loc.dframe <- data.frame( Chromosome=chr, Position=pos, Ort=strand )
-len.dframe <- unique(cbind( loc.dframe[ rep( 1:200, nlens ) , ], length=unlist(lens) ))
+len.dframe <- unique(cbind( loc.dframe[ rep( 1:200, nlens ) , ],
+			   length=unlist(lens) ))
 rbind( head( len.dframe ), tail( len.dframe ) )
 
 
@@ -59,16 +60,17 @@ abline(a=0,b=1,col='gray')
 len.dframe$repl <- 1
 lens2 <- lapply(1:200,rfrag, rate=0.03 )
 nlens2 <- sapply( lens2, length )
-len.dframe2 <- unique(cbind( loc.dframe[ rep( 1:200, nlens2 ) , ], length=unlist(lens2), repl=2 ))
+len.dframe2 <- unique(cbind( loc.dframe[ rep( 1:200, nlens2 ) , ],
+                            length=unlist(lens2), repl=2 ))
 lens3 <- lapply(1:200,rfrag, rate=0.04 )
 nlens3 <- sapply( lens, length )
-len.dframe3 <- unique(cbind( loc.dframe[ rep( 1:200, nlens3 ) , ], length=unlist(lens3), repl=3 ))
+len.dframe3 <- unique(cbind( loc.dframe[ rep( 1:200, nlens3 ) , ],
+                            length=unlist(lens3), repl=3 ))
 
 len.dframe <- rbind(len.dframe,len.dframe2,len.dframe3)
 
 fit2 <- with(len.dframe, estAbund( paste(Chromosome, Position, Ort ),
                                    length, repl ))
-
 
 
 
@@ -85,7 +87,8 @@ str( fit2 )
 ###################################################
 
 with( fit2, 
-     plot( lframe$x[ lframe$orig ], phi, pch=16,col=lframe$strata[ lframe$orig ],
+     plot( lframe$x[ lframe$orig ], phi, pch=16,
+          col=lframe$strata[ lframe$orig ],
           xlab="length",
           ylab='phi',
           xlim=c(1,200)
